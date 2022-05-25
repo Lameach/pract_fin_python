@@ -1,5 +1,8 @@
+import json
+from statistics import mean
+
 def fact(x):
-  if (x == 0):
+  if x == 0:
     return 1
   else:
     return x*fact(x-1)
@@ -21,11 +24,11 @@ def bin_search(li, element):
 
 def bin_search_rec(li, element, left, right):
   index = left + (right - left) // 2
-  if (left == right and li[index] != element):
+  if left == right and li[index] != element:
     return -1
-  elif (li[index] > element):
+  elif li[index] > element:
     return bin_search_rec(li, element, left, index - 1)
-  elif (li[index] < element):
+  elif li[index] < element:
     return bin_search_rec(li, element, index + 1, right)
   else:
     return index
@@ -36,7 +39,7 @@ def is_palindrome(string):
   filtered_string = list(filter(lambda x: x.isalpha(), string.lower()))
   i = 0
   j = 0 if len(filtered_string) == 0 else len(filtered_string) - 1
-  while (i != j):
+  while i != j:
     if (filtered_string[i] != filtered_string[j]):
       return 'NO'
     i += 1
@@ -76,3 +79,54 @@ def substring_slice(path2file_1, path2file_2):
 
 # print(substring_slice('test_import_file_2_1.txt', 'test_import_file_2_2.txt'))
 
+def decode_ch(string_of_elements):
+  with open('periodic_table.json', encoding="utf-8") as table:
+    dict = json.load(table)
+    result = ''
+    element = ''
+    for i in range (len(string_of_elements)):
+      element += string_of_elements[i]
+      if element in dict and (i == len(string_of_elements) - 1 or string_of_elements[i + 1].isupper()):
+        result += dict[element]
+        element = ''
+    return result
+
+# print(decode_ch('NOTiFICaTiON'))
+
+class Student:
+  def __init__(self, name, surname, grades = [3, 4, 5]):
+      self.name = name
+      self.surname = surname
+      self.fullname = name + ' ' + surname
+      self.grades = grades
+  
+  def greeting(self):
+    return 'Hello, I am Student'
+  
+  def mean_grade(self):
+    return mean(self.grades)
+  
+  def is_otlichnik(self):
+    return 'YES' if self.mean_grade() >= 4.5 else 'NO'
+  
+  def __add__(self, other):
+    return self.name + ' is friends with ' + other.name
+  
+  def __str__(self):
+    return self.fullname
+  
+
+# student1 = Student('Иван', 'Петров')
+# student2 = Student('Виктор', 'Сидоров', [5, 5, 5, 4])
+
+# print(student1.greeting())
+# print(student1, student2)
+# print(student1 + student2)
+# print(student1.is_otlichnik(), student2.is_otlichnik()) 
+
+class MyError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+# raise MyError('test')
