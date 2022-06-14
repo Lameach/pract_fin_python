@@ -1,4 +1,5 @@
 import json
+from functools import reduce
 from statistics import mean
 
 def fact(x):
@@ -20,6 +21,8 @@ def square(li):
 # print (square([3,6,9,12]))
 
 def bin_search(li, element):
+  if len(li) == 0:
+    return -1
   return bin_search_rec(li, element, 0, len(li) - 1)
 
 def bin_search_rec(li, element, left, right):
@@ -33,13 +36,13 @@ def bin_search_rec(li, element, left, right):
   else:
     return index
 
-# print(bin_search([3,6,7,9,12,14,18], 3))
+# print(bin_search([1], 9))
 
 def is_palindrome(string):
   filtered_string = list(filter(lambda x: x.isalpha(), string.lower()))
   i = 0
   j = 0 if len(filtered_string) == 0 else len(filtered_string) - 1
-  while i != j:
+  while i < j:
     if (filtered_string[i] != filtered_string[j]):
       return 'NO'
     i += 1
@@ -63,7 +66,7 @@ def calculate(path2file):
     for i in range (len(lines)):
       line_content = lines[i].split()
       results.append(operations[line_content[0]](int(line_content[1]), int(line_content[2])))
-    return str(results).strip('[]')
+    return reduce(lambda x, y: str(x) + ', ' + str(y), results)
 
 # print(calculate('test_input_file_1.txt'))
 
@@ -125,8 +128,8 @@ class Student:
 # print(student1.is_otlichnik(), student2.is_otlichnik()) 
 
 class MyError(Exception):
-    def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
+    def __init__(self, msg):
+        self.msg = msg
+        super().__init__(self.msg)
 
 # raise MyError('test')
