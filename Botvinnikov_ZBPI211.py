@@ -23,33 +23,35 @@ def square(li):
 def bin_search(li, element):
   if len(li) == 0:
     return -1
-  return bin_search_rec(li, element, 0, len(li) - 1)
-
-def bin_search_rec(li, element, left, right):
+  left = 0
+  right = len(li) - 1
+  while left < right:
+    index = left + (right - left) // 2
+    if li[index] > element:
+      right = index - 1
+    elif li[index] < element:
+      left = index + 1
+    else:
+      return index
   index = left + (right - left) // 2
-  if left == right and li[index] != element:
-    return -1
-  elif li[index] > element:
-    return bin_search_rec(li, element, left, index - 1)
-  elif li[index] < element:
-    return bin_search_rec(li, element, index + 1, right)
-  else:
+  if left == right and li[index] == element:
     return index
+  return -1
 
-# print(bin_search([1], 9))
+# print(bin_search([1, 2,8], 2))
 
 def is_palindrome(string):
   filtered_string = list(filter(lambda x: x.isalpha(), string.lower()))
   i = 0
   j = 0 if len(filtered_string) == 0 else len(filtered_string) - 1
   while i < j:
-    if (filtered_string[i] != filtered_string[j]):
+    if (ord(filtered_string[i]) != ord(filtered_string[j])):
       return 'NO'
     i += 1
     j -= 1
   return 'YES'
 
-# print(is_palindrome('А роза упала на лапу Азора!'))
+# print(is_palindrome('ksjfdh'))
 
 def calculate(path2file):
   operations = {
