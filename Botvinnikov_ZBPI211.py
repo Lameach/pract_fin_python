@@ -70,7 +70,7 @@ def calculate(path2file):
       results.append(operations[line_content[0]](int(line_content[1]), int(line_content[2])))
     return reduce(lambda x, y: str(x) + ',' + str(y), results)
 
-print(calculate('test_input_file_1.txt'))
+# print(calculate('test_input_file_1.txt'))
 
 def substring_slice(path2file_1, path2file_2):
   with open(path2file_1) as f_1, open(path2file_2) as f_2:
